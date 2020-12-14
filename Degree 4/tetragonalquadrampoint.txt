@@ -1,0 +1,78 @@
+loadPackage "Schubert2"
+B0=base(7,Bundle=>(F,2,"f"), Bundle=>(Hyp,1,"h"), Bundle=>(M,1,"m"), Bundle=>(HypT,1,"zeta"))
+B0R=intersectionRing(B0)
+PF=flagBundle({1,1},dual(F))
+BunPF=bundles(PF)
+W=Hyp**Hyp**dual(F)
+N=abstractSheaf(PF, ChernClass=>chern_1(dual(M)+(HypT**HypT))-chern_1(W)-chern_1(BunPF#1**Hyp**Hyp), Rank=>1)
+Quad=W+(HypT**W)+(M**BunPF#1**Hyp**Hyp)+(HypT**HypT**BunPF#1**Hyp**Hyp)+(HypT**M**BunPF#1**Hyp**Hyp)
+Quad2=W+(HypT**W)+(M**BunPF#1**Hyp**Hyp)+(HypT**HypT**BunPF#1**Hyp**Hyp)+(HypT**dual(N)**BunPF#1**Hyp**Hyp)
+
+fmap=PF.StructureMap
+otheranswer1=fmap_*(ctop(Quad2))
+newotheranswer1=toString(otheranswer1)
+quadramlist0= for i from 0 to 1 list fmap_*((chern_1(BunPF#1))^i*ctop(Quad))
+newquadramlist0 = for i from 0 to 1 list toString(quadramlist0#i)
+
+
+B1=base(7,Bundle=>(T,2,"t"), Bundle=>(F,2,"f"),Bundle=>(Hyp,1,"h"))
+B1R=intersectionRing(B1)
+PT=flagBundle({1,1},dual(T))
+PTR=intersectionRing(PT)
+eta=PT.StructureMap
+BunPT=bundles(PT)
+zeta1=chern_1(BunPT#1)
+m1=chern_1(BunPT#0)
+otheranswer2=eta_*(value(newotheranswer1))
+newotheranswer2=toString(otheranswer2)
+quadramlist1=for i from 0 to 1 list (for j from 0 to 1 list eta_*(zeta1^i*value(newquadramlist0#j)))
+newquadramlist1 = flatten(for i from 0 to 1 list(for j from 0 to 1 list toString(quadramlist1#i#j)))
+
+B2=base(7,Bundle=>(E,3,"e"),Bundle=>(F,2,"f"),Bundle=>(Hyp2,1,"z"))
+B2R=intersectionRing(B2)
+PEvee=flagBundle({2,1},E)
+PEveeR=intersectionRing(PEvee)
+gamma=PEvee.StructureMap
+Tgamma=tangentBundle(gamma)
+t1=chern_1(Tgamma)
+t2=chern_2(Tgamma)
+h1=chern_1(OO_PEvee(1))
+otheranswer3=gamma_*(value(newotheranswer2))
+newotheranswer3=toString(otheranswer3)
+quadramlist2=for i from 0 to 2 list (for j from 0 to 2 list gamma_*(h1^j*value(newquadramlist1#i)))
+newquadramlist2 = flatten(for i from 0 to 2 list (for j from 0 to 2 list toString(quadramlist2#i#j)))
+
+B3=base(7,g,Bundle=>(C,2,"c"), Bundle=>(A,3,"a"), Bundle=>(D,2,"d"), Bundle=>(B,2,"b"))
+B3R=intersectionRing(B3)
+V=abstractSheaf(B3, ChernClass=>1+c2, Rank=>2)
+P=flagBundle({1,1},V)
+PR=intersectionRing(P)
+p=P.StructureMap
+z1=chern_1(OO_P(1))
+--E=abstractSheaf(P, ChernClass=>1+a1+(g+3)*z1+a2+d1*z1+a3+d2*z1, Rank=>3)
+E=abstractSheaf(P, ChernClass=>1+a1+(g+3)*z1+a2+d1*z1+a3+(g*a2+a1*d1-g*b2-a1*((8*g + 20)*a1 + (-8)*d1)+a2-b2)*z1, Rank=>3)
+F=abstractSheaf(P, ChernClass=>1+a1+(g+3)*z1+b2+((8*g + 20)*a1 + (-8)*d1)*z1, Rank=>2)
+e1=chern_1(E)
+e2=chern_2(E)
+e3=chern_3(E)
+f1=chern_1(F)
+f2=chern_2(F)
+otheranswer4=p_*(value(newotheranswer3))
+newotheranswer4=toString(otheranswer4)
+quadramlist3=for k from 0 to 1 list (for i from 0 to 8 list p_*(z1^k*value(newquadramlist2#i)))
+newquadramlist3 = flatten(for k from 0 to 1 list (for i from 0 to 8 list toString(quadramlist3#k#i)))
+newquadramlist3#0
+
+-32*g*a1^2-80*a1^2+4*g*a2+36*a1*d1-4*g*b2+4*a2-4*b2
+
+-192*g*a1^2-480*a1^2+20*g*a2+212*a1*d1-24*g*b2+20*a2-32*b2
+
+288*g*a1^2+720*a1^2-28*g*a2-316*a1*d1+36*g*b2-28*a2+52*b2
+
+464*g*a1^2+1160*a1^2-44*g*a2-508*a1*d1+58*g*b2-44*a2+86*b2
+
+-368*g*a1^2-920*a1^2+36*g*a2+404*a1*d1-46*g*b2+36*a2-66*b2
+
+-208*g*a1^2-520*a1^2+20*g*a2+228*a1*d1-26*g*b2+20*a2-38*b2
+
+304*g*a1^2+760*a1^2-28*g*a2-332*a1*d1+38*g*b2-28*a2+58*b2

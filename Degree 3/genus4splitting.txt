@@ -1,0 +1,16 @@
+loadPackage "Schubert2"
+B2=base(4,Bundle=>(A,2,"a"),Bundle=>(Ap,1,"d"),Bundle=>(C,2,"c"))
+B2R=intersectionRing(B2)
+V=abstractSheaf(B2,Rank=>2,ChernClass=>1+c2)
+P=flagBundle({1,1},dual(V))
+PR=intersectionRing(P)
+p=P.StructureMap
+z1=chern_1(OO_P(1))
+E=abstractSheaf(P,Rank=>2,ChernClass=>1+a1+6*z1+a2+d1*z1)
+e1=chern_1(E)
+e2=chern_2(E)
+num4=chern((dual(p_*(E(-4))**p_*(OO_P(1)))))
+denom4=segre((p_*(E(-3))))
+denom4p=segre(dual(p_*(E(-3))))
+toString(num4*denom4)
+toString(num4*denom4p)
