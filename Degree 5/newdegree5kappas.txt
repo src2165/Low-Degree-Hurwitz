@@ -1,0 +1,42 @@
+loadPackage "Schubert2"
+B3=base(10,Bundle=>(Hyp2,1,"z"), Bundle=>(F,5,"f"), Bundle=>(E,4,"e"))
+B3R=intersectionRing(B3)
+PEvee=flagBundle({1,3},dual(E))
+PEveeR=intersectionRing(PEvee)
+gamma=PEvee.StructureMap
+BunPEvee=bundles(PEvee)
+H=dual(BunPEvee#0)
+zet=chern_1(H)
+A1=F**BunPEvee#0**BunPEvee#0
+A2=dual(F)**determinant(E)**BunPEvee#0**BunPEvee#0**BunPEvee#0
+A3=determinant(E)**BunPEvee#0**BunPEvee#0**BunPEvee#0**BunPEvee#0**BunPEvee#0
+C1=-ch_3(A1)
+C2=ch_3(A2)
+C3=-ch_3(A3)
+--C1=-ch_3(F**BunPEvee#0**BunPEvee#0)
+--C2=ch_3(dual(F)**determinant(E)**BunPEvee#0**BunPEvee#0**BunPEvee#0)
+--C3=-1/6*(chern_1(E)-5*zet)^3
+Curve=C1+C2+C3
+
+kappalist1=for i from 0 to 4 list gamma_*(Curve*((zet-2*z1)^(i+1)))
+newkappalist1=for i from 0 to 4 list toString(kappalist1#i)
+
+B4=base(15,g,Bundle=>(A,4,"a"),Bundle=>(D,3,"d"), Bundle=>(B,5,"b"), Bundle=>(M,4,"m"), Bundle=>(C,2,"c"))
+B4R=intersectionRing(B4)
+V=abstractSheaf(B4, ChernClass=>1+c2, Rank=>2)
+P=flagBundle({1,1},V)
+PR=intersectionRing(P)
+p=P.StructureMap
+z1=chern_1(OO_P(1))
+E=abstractSheaf(P, ChernClass=>1+a1+(g+4)*z1+a2+d1*z1+a3+d2*z1+a4+d3*z1, Rank=>4)
+F=abstractSheaf(P, ChernClass=>1+2*a1+(2*g+8)*z1+b2+m1*z1+b3+m2*z1+b4+m3*z1+b5+m4*z1, Rank=>5)
+e1=chern_1(E)
+e2=chern_2(E)
+e3=chern_3(E)
+e4=chern_4(E)
+f1=chern_1(F)
+f2=chern_2(F)
+f3=chern_3(F)
+f4=chern_4(F)
+f5=chern_5(F)
+kappalist2=for i from 0 to 4 list p_*(value(newkappalist1#i))
