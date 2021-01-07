@@ -1,3 +1,4 @@
+truncateOutput 50
 loadPackage "Schubert2"
 B1=base(14, Bundle=>(Q, 6, "q"), Bundle=>(HypPT,1,"psi"), Bundle=>(M,5,"m"), Bundle=>(Gpluck,1,"s"))
 B1R=intersectionRing(B1)
@@ -9,9 +10,7 @@ Trip=(Q**Gpluck)+(Q**HypPT**Gpluck)+(dual(M)**OO_PQvee(1)**Gpluck)+(HypPT**HypPT
 extra=chern_1(HypPT)+chern_1(OO_PQvee(1))+chern_1(Gpluck)+chern_1(Ndual)
 newextra=toString(extra)
 trip1=beta_*(ctop(Trip))
-extratrip1=beta_*(ctop(Trip)*chern_1(OO_PQvee(1)))
 newtrip1=toString(trip1)
-newextratrip1=toString(extratrip1)
 
 
 B2=base(8, Bundle=>(Tan, 6, "t"), Bundle=>(Q, 6, "q"), Bundle=>(Gpluck,1,"s"))
@@ -28,12 +27,8 @@ m3=chern_3(M)
 m4=chern_4(M)
 m5=chern_5(M)
 trip2=eta_*(value(newtrip1))
-extratrip2=eta_*(value(newextratrip1))
-othertrip2=eta_*(value(newtrip1)*psi1)
 newtrip2=toString(trip2)
-newextratrip2=toString(extratrip2)
-newothertrip2=toString(othertrip2)
-quad1=eta_*(value(newtrip1)*newextra)
+quad1=eta_*(value(newtrip1)*value(newextra))
 newquad1=toString(quad1)
 Ram=(Q**Gpluck)+(Q**Gpluck**dual(BunPT#0))
 ram1=eta_*(ctop(Ram))

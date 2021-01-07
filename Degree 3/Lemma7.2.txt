@@ -10,6 +10,8 @@ Delta=W+(W**Omega)
 triglist1=for i from 0 to 1 list gamma_*((chern_1(OO_PEvee(1)))^i*ctop(Delta))
 newtriglist1 = for i from 0 to 1 list toString(triglist1#i)
 h1=chern_1(OO_PEvee(1))
+kappalist1=for i from 0 to 2 list gamma_*(ctop(W)*((h1-2*z1)^(i+1)))
+newkappalist1=for i from 0 to 2 list toString(kappalist1#i)
 
 B2=base(4,g,Bundle=>(A,2,"a"),Bundle=>(Ap,1,"d"),Bundle=>(C,2,"c"))
 B2R=intersectionRing(B2)
@@ -18,34 +20,22 @@ P=flagBundle({1,1},V)
 PR=intersectionRing(P)
 p=P.StructureMap
 z1=chern_1(OO_P(1))
-E=abstractSheaf(P,Rank=>2,ChernClass=>1+a1+6*z1+a2+d1*z1)
+E=abstractSheaf(P,Rank=>2,ChernClass=>1+a1+(g+2)*z1+a2+d1*z1)
 e1=chern_1(E)
 e2=chern_2(E)
 triglist2=for i from 0 to 1 list (for j from 0 to 1 list p_*(z1^j*value(newtriglist1#i)))
 newtriglist2 = flatten(for i from 0 to 1 list (for j from 0 to 1 list toString(triglist2#i#j)))
-num4=chern((dual(p_*(E(-3))**p_*(OO_P(1)))))
-denom4=segre((p_*(E(-2))))
-S=QQ[a1,a2,d1,c2, Degrees=>{{1},{2},{1},{2}}]
-s14=value(toString(part(1,num4*denom4)))
-I=ideal(for i from 0 to 3 list (value(newtriglist2#i)))+ideal(s14)
+kappalist2=for i from 0 to 2 list p_*(value(newkappalist1#i))
+newkappalist2=for i from 0 to 2 list toString(kappalist2)
+A=QQ[g]
+R=frac(A)
+S=R[a1,a2,d1,c2, Degrees=>{{1},{2},{1},{2}}]
+I=ideal(for i from 0 to 3 list (value(newtriglist2#i)))
 J=minimalPresentation(I)
-
-
-
-
-
-
-loadPackage "Schubert2"
-B2=base(4,Bundle=>(A,2,"a"),Bundle=>(Ap,1,"d"),Bundle=>(C,2,"c"))
-B2R=intersectionRing(B2)
-V=abstractSheaf(B2,Rank=>2,ChernClass=>1+c2)
-P=flagBundle({1,1},dual(V))
-PR=intersectionRing(P)
-p=P.StructureMap
-z1=chern_1(OO_P(1))
-E=abstractSheaf(P,Rank=>2,ChernClass=>1+a1+6*z1+a2+d1*z1)
-e1=chern_1(E)
-e2=chern_2(E)
-num4=chern((dual(p_*(E(-3))**p_*(OO_P(1)))))
-denom4=segre((p_*(E(-2))))
-toString(num4*denom4)
+Jtext=toString(J)
+G=R[d1, Degrees=>{1}]
+newJ=value(Jtext)
+Chow=G/newJ
+basis(1,Chow)
+basis(2,Chow)
+basis(3,Chow)

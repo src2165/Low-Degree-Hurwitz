@@ -31,6 +31,10 @@ A=QQ[g]
 R=frac(A)
 S=R[a1,a2,d1,c2, Degrees=>{{1},{2},{1},{2}}]
 I=ideal(for i from 0 to 3 list (value(newtriglist2#i)))
+I3=I+ideal(g-3,a1^2-1/2*a2-3/2*a1*d1+1/2*d1^2-3*c2)
+I4=I+ideal(g-4,
+I5=I+ideal(g-5,3*a1^2-1/2*a2-5/2*a1*d1+1/2*d1^2-6*c2)
+minimalPresentation(I2)
 T=S/I
 kappa1=value(newkappalist2#1)
 kappa2=value(newkappalist2#2)
