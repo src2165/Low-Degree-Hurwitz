@@ -1,9 +1,48 @@
---This file allows one to quickly do computations with the ring Chow, which is the ring computed in section 9.3.
+loadPackage "Schubert2"
+B3=base(10,Bundle=>(Hyp2,1,"z"), Bundle=>(F,5,"f"), Bundle=>(E,4,"e"))
+B3R=intersectionRing(B3)
+PEvee=flagBundle({1,3},dual(E))
+PEveeR=intersectionRing(PEvee)
+gamma=PEvee.StructureMap
+BunPEvee=bundles(PEvee)
+H=dual(BunPEvee#0)
+zet=chern_1(H)
+A1=F**BunPEvee#0**BunPEvee#0
+A2=dual(F)**determinant(E)**BunPEvee#0**BunPEvee#0**BunPEvee#0
+A3=determinant(E)**BunPEvee#0**BunPEvee#0**BunPEvee#0**BunPEvee#0**BunPEvee#0
+C1=-ch_3(A1)
+C2=ch_3(A2)
+C3=-ch_3(A3)
+
+Curve=C1+C2+C3
+
+kappalist1=for i from 0 to 2 list gamma_*(Curve*((zet-2*z1)^(i+1)))
+newkappalist1=for i from 0 to 2 list toString(kappalist1#i)
+
+B4=base(15,g,Bundle=>(A,4,"a"),Bundle=>(D,3,"d"), Bundle=>(B,5,"b"), Bundle=>(M,4,"m"), Bundle=>(C,2,"c"))
+B4R=intersectionRing(B4)
+V=abstractSheaf(B4, ChernClass=>1+c2, Rank=>2)
+P=flagBundle({1,1},V)
+PR=intersectionRing(P)
+p=P.StructureMap
+z1=chern_1(OO_P(1))
+E=abstractSheaf(P, ChernClass=>1+a1+(g+4)*z1+a2+d1*z1+a3+d2*z1+a4+d3*z1, Rank=>4)
+F=abstractSheaf(P, ChernClass=>1+2*a1+(2*g+8)*z1+b2+m1*z1+b3+m2*z1+b4+m3*z1+b5+m4*z1, Rank=>5)
+e1=chern_1(E)
+e2=chern_2(E)
+e3=chern_3(E)
+e4=chern_4(E)
+f1=chern_1(F)
+f2=chern_2(F)
+f3=chern_3(F)
+f4=chern_4(F)
+f5=chern_5(F)
+kappalist2=for i from 0 to 2 list p_*(value(newkappalist1#i))
+oldkappa2=kappalist2#1
 
 A=QQ[g]
 R=frac(A)
 S=R[a1,a2,a3,a4,b2,b3,b4,b5,d1,d2,d3,m1,m2,m3,m4,c2, Degrees=>{{1},{2},{3},{4},{2},{3},{4},{5},{1},{2},{3},{1},{2},{3},{4},{2}}]
-I=ideal(for i from 0 to 487 list (value(newpentlist4#i)))
 I2=ideal(-m1 + (-7)*d1 + (10*g + 36)*a1, 
 -b2 + 5*a1^2 + (-7)*a2 + (-5*g^2 - 36*g - 64)*c2,
 -d2 + (-g - 3)*a1^2 + a1*d1 + (g + 2)*a2 + (1/3*g^3 + 3*g^2 + 26/3*g + 8)*c2,
@@ -22,10 +61,7 @@ I2=ideal(-m1 + (-7)*d1 + (10*g + 36)*a1,
 266/5*a1^4 + (-1074/5)*a1^2*a2 + (-1596/5*g^2 - 2166*g - 3668)*a1^2*c2 + (2148/5*g + 7272/5)*a1*d1*c2 + (-216)*d1^2*c2 + 216*a2^2 + (1074/5*g^2 + 7272/5*g + 12288/5)*a2*c2 + (266/5*g^4 + 722*g^3 + 3668*g^2 + 8272*g + 34944/5)*c2^2,
 (-3709/15*g - 68407/75)*a1^4 + 5087/25*a1^3*d1 + (15261/25*g + 58622/25)*a1^2*a2 + (-2088/5)*a1*a2*d1 + (7418/15*g^3 + 136814/25*g^2 + 99964/5*g + 72452/3)*a1^2*c2 + (-15261/25*g^2 - 117244/25*g - 220992/25)*a1*d1*c2 + (1044/5*g + 4824/5)*d1^2*c2 + (-1044/5*g - 4824/5)*a2^2 + (-5087/25*g^3 - 58622/25*g^2 - 220992/25*g - 274032/25)*a2*c2 + (-3709/75*g^5 - 68407/75*g^4 - 99964/15*g^3 - 72452/3*g^2 - 1086752/25*g - 778176/25)*c2^2)
 
-I==I2
 J=minimalPresentation(I2)
 
-textJ=toString(J)
-G=R[a1,a2,d1,c2, Degrees=>{{1},{2},{1},{2}}]
-newJ=value(textJ)
-Chow=G/newJ
+f=I2.cache.minimalPresentationMap
+kappa2=f(oldkappa2)

@@ -1,0 +1,111 @@
+truncateOutput 50
+loadPackage "Schubert2"
+B1=base(14, Bundle=>(Q, 6, "q"), Bundle=>(HypPT,1,"psi"), Bundle=>(M,5,"m"), Bundle=>(Gpluck,1,"s"))
+B1R=intersectionRing(B1)
+PQvee=flagBundle({5,1},Q)
+PQveeR=intersectionRing(PQvee)
+beta=PQvee.StructureMap
+Ndual=abstractSheaf(PQvee,ChernClass=>1+chern_1(dual(M)+(HypPT**HypPT))-chern_1(dual(Q)**dual(Gpluck))+chern_1(OO_PQvee(-1)**dual(Gpluck)), Rank=>1)
+Trip=(Q**Gpluck)+(Q**HypPT**Gpluck)+(dual(M)**OO_PQvee(1)**Gpluck)+(HypPT**HypPT**OO_PQvee(1)**Gpluck)
+extra=chern_1(HypPT)+chern_1(OO_PQvee(1))+chern_1(Gpluck)+chern_1(Ndual)
+newextra=toString(extra)
+trip1=beta_*(ctop(Trip))
+newtrip1=toString(trip1)
+
+
+B2=base(8, Bundle=>(Tan, 6, "t"), Bundle=>(Q, 6, "q"), Bundle=>(Gpluck,1,"s"))
+B2R=intersectionRing(B2)
+PT=flagBundle({1,5},Tan)
+PTR=intersectionRing(PT)
+BunPT=bundles(PT)
+eta=PT.StructureMap
+psi1=chern_1(dual(BunPT#0))
+M=BunPT#1
+m1=chern_1(M)
+m2=chern_2(M)
+m3=chern_3(M)
+m4=chern_4(M)
+m5=chern_5(M)
+
+quad1=eta_*(value(newtrip1)*value(newextra))
+newquad1=toString(quad1)
+
+
+B3=base(11,Bundle=>(F,5,"f"),Bundle=>(E,4,"e"))
+B3R=intersectionRing(B3)
+Ep=dual(E)**determinant(E)
+Q=abstractSheaf(B3,ChernCharacter=>ch(exteriorPower_2(F))-ch(Ep))
+q1=chern_1(Q)
+q2=chern_2(Q)
+q3=chern_3(Q)
+q4=chern_4(Q)
+q5=chern_5(Q)
+q6=chern_6(Q)
+G2F=flagBundle({2,3},F)
+G2FR=intersectionRing(G2F)
+BunG2F=bundles(G2F)
+alpha=G2F.StructureMap
+Gpluck=dual(determinant(BunG2F#0))
+Tan=tangentBundle(alpha)
+t1=chern_1(Tan)
+t2=chern_2(Tan)
+t3=chern_3(Tan)
+t4=chern_4(Tan)
+t5=chern_5(Tan)
+t6=chern_6(Tan)
+s1=chern_1(Gpluck)
+quad2=alpha_*(value(newquad1))
+newquad2=toString(quad2)
+
+
+
+B4=base(12,g,Bundle=>(A,4,"a"),Bundle=>(D,3,"d"), Bundle=>(B,5,"b"), Bundle=>(M1,4,"m"), Bundle=>(C,2,"c"))
+B4R=intersectionRing(B4)
+V=abstractSheaf(B4, ChernClass=>1+c2, Rank=>2)
+P=flagBundle({1,1},V)
+PR=intersectionRing(P)
+p=P.StructureMap
+z1=chern_1(OO_P(1))
+E=abstractSheaf(P, ChernClass=>1+a1+(g+4)*z1+a2+d1*z1+a3+d2*z1+a4+d3*z1, Rank=>4)
+F=abstractSheaf(P, ChernClass=>1+2*a1+(2*g+8)*z1+b2+m1*z1+b3+m2*z1+b4+m3*z1+b5+m4*z1, Rank=>5)
+e1=chern_1(E)
+e2=chern_2(E)
+e3=chern_3(E)
+e4=chern_4(E)
+f1=chern_1(F)
+f2=chern_2(F)
+f3=chern_3(F)
+f4=chern_4(F)
+f5=chern_5(F)
+
+U1=p_*(value(newquad2))
+
+A=QQ[g]
+R=frac(A)
+S=R[a1,a2,a3,a4,b2,b3,b4,b5,d1,d2,d3,m1,m2,m3,m4,c2, Degrees=>{{1},{2},{3},{4},{2},{3},{4},{5},{1},{2},{3},{1},{2},{3},{4},{2}}]
+I2=ideal(-m1 + (-7)*d1 + (10*g + 36)*a1, 
+-b2 + 5*a1^2 + (-7)*a2 + (-5*g^2 - 36*g - 64)*c2,
+-d2 + (-g - 3)*a1^2 + a1*d1 + (g + 2)*a2 + (1/3*g^3 + 3*g^2 + 26/3*g + 8)*c2,
+-m2 + (99/5*g + 337/5)*a1^2 + (-62/5)*a1*d1 + (-62/5*g - 194/5)*a2 + (-33/5*g^3 - 337/5*g^2 - 1138/5*g - 1272/5)*c2,
+-a3 + (-1/3)*a1^3 + a1*a2 + (g^2 + 6*g + 26/3)*a1*c2 + (-g - 2)*d1*c2,
+-m3 + (4232/375*g + 3146/75)*a1^3 + (-824/125)*a1^2*d1 + (-1648/125*g - 6422/125)*a1*a2 + 104/25*a2*d1 + (-4232/375*g^3 - 3146/25*g^2 - 34024/75*g - 39712/75)*a1*c2 + (824/125*g^2 + 6422/125*g + 10928/125)*d1*c2,
+-d3 + (-676/125*g - 433/25)*a1^3 + 621/125*a1^2*d1 + (1242/125*g + 3888/125)*a1*a2 + (-216/25)*a2*d1 + (676/125*g^3 + 1299/25*g^2 + 4172/25*g + 4496/25)*a1*c2 + (-621/125*g^2 - 3888/125*g - 6312/125)*d1*c2,
+-b3 + 33/5*a1^3 + (-62/5)*a1*a2 + (-99/5*g^2 - 674/5*g - 1138/5)*a1*c2 + (62/5*g + 194/5)*d1*c2,
+-b4 + 1058/375*a1^4 + (-824/125)*a1^2*a2 + (-2116/125*g^2 - 3146/25*g - 17012/75)*a1^2*c2 + (1648/125*g + 6422/125)*a1*d1*c2 + (-52/25)*d1^2*c2 + 52/25*a2^2 + (824/125*g^2 + 6422/125*g + 10928/125)*a2*c2 + (1058/375*g^4 + 3146/75*g^3 + 17012/75*g^2 + 39712/75*g + 56384/125)*c2^2,
+-m4 + (1638/25*g + 24792/125)*a1^4 + (-6542/125)*a1^3*d1 + (-19626/125*g - 54234/125)*a1^2*a2 + 2592/25*a1*a2*d1 + (-3276/25*g^3 - 148752/125*g^2 - 88698/25*g - 17292/5)*a1^2*c2 + (19626/125*g^2 + 108468/125*g + 142648/125)*a1*d1*c2 + (-1296/25*g - 1944/25)*d1^2*c2 + (1296/25*g + 1944/25)*a2^2 + (6542/125*g^3 + 54234/125*g^2 + 142648/125*g + 114576/125)*a2*c2 + (1638/125*g^5 + 24792/125*g^4 + 29566/25*g^3 + 17292/5*g^2 + 615712/125*g + 337728/125)*c2^2,
+-a4 + (-169/125)*a1^4 + 621/125*a1^2*a2 + (1014/125*g^2 + 1299/25*g + 2086/25)*a1^2*c2 + (-1242/125*g - 3888/125)*a1*d1*c2 + 108/25*d1^2*c2 + (-108/25)*a2^2 + (-621/125*g^2 - 3888/125*g - 6312/125)*a2*c2 + (-169/125*g^4 - 433/25*g^3 - 2086/25*g^2 - 4496/25*g - 18336/125)*c2^2,
+-b5 + 1638/125*a1^5 + (-6542/125)*a1^3*a2 + (-3276/25*g^2 - 99168/125*g - 29566/25)*a1^3*c2 + (19626/125*g + 54234/125)*a1^2*d1*c2 + (-1296/25)*a1*d1^2*c2 + 1296/25*a1*a2^2 + (19626/125*g^2 + 108468/125*g + 142648/125)*a1*a2*c2 + (-2592/25*g - 3888/25)*a2*d1*c2 + (1638/25*g^4 + 99168/125*g^3 + 88698/25*g^2 + 34584/5*g + 615712/125)*a1*c2^2 + (-6542/125*g^3 - 54234/125*g^2 - 142648/125*g - 114576/125)*d1*c2^2,
+(1064/5*g + 722)*a1^3 + (-1074/5)*a1^2*d1 + (-2148/5*g - 7272/5)*a1*a2 + 432*a2*d1 + (-1064/5*g^3 - 2166*g^2 - 7336*g - 8272)*a1*c2 + (1074/5*g^2 + 7272/5*g + 12288/5)*d1*c2,
+(-6412/15*g - 1417)*a1^3 + 2069/5*a1^2*d1 + (4138/5*g + 13632/5)*a1*a2 + (-792)*a2*d1 + (6412/15*g^3 + 4251*g^2 + 42308/3*g + 15632)*a1*c2 + (-2069/5*g^2 - 13632/5*g - 22728/5)*d1*c2,
+(-1523/5*g - 67763/75)*a1^4 + 6047/25*a1^3*d1 + (18141/25*g + 1954)*a1^2*a2 + (-2376/5)*a1*a2*d1 + (3046/5*g^3 + 135526/25*g^2 + 78948/5*g + 224612/15)*a1^2*c2 + (-18141/25*g^2 - 3908*g - 124216/25)*a1*d1*c2 + (1188/5*g + 1656/5)*d1^2*c2 + (-1188/5*g - 1656/5)*a2^2 + (-6047/25*g^3 - 1954*g^2 - 124216/25*g - 94608/25)*a2*c2 + (-1523/25*g^5 - 67763/75*g^4 - 26316/5*g^3 - 224612/15*g^2 - 515392/25*g - 270144/25)*c2^2,
+266/5*a1^4 + (-1074/5)*a1^2*a2 + (-1596/5*g^2 - 2166*g - 3668)*a1^2*c2 + (2148/5*g + 7272/5)*a1*d1*c2 + (-216)*d1^2*c2 + 216*a2^2 + (1074/5*g^2 + 7272/5*g + 12288/5)*a2*c2 + (266/5*g^4 + 722*g^3 + 3668*g^2 + 8272*g + 34944/5)*c2^2,
+(-3709/15*g - 68407/75)*a1^4 + 5087/25*a1^3*d1 + (15261/25*g + 58622/25)*a1^2*a2 + (-2088/5)*a1*a2*d1 + (7418/15*g^3 + 136814/25*g^2 + 99964/5*g + 72452/3)*a1^2*c2 + (-15261/25*g^2 - 117244/25*g - 220992/25)*a1*d1*c2 + (1044/5*g + 4824/5)*d1^2*c2 + (-1044/5*g - 4824/5)*a2^2 + (-5087/25*g^3 - 58622/25*g^2 - 220992/25*g - 274032/25)*a2*c2 + (-3709/75*g^5 - 68407/75*g^4 - 99964/15*g^3 - 72452/3*g^2 - 1086752/25*g - 778176/25)*c2^2)
+
+Uold=-4*g^3*c2+12*g*a1^2-48*g^2*c2+48*a1^2-4*g*b2-4*a1*m1-192*g*c2-16*b2+4*m2-256*c2
+J=minimalPresentation(I2)
+
+f=I2.cache.minimalPresentationMap
+U=f(Uold)
+
+
+

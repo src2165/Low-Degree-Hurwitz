@@ -1,1 +1,3 @@
 # Low-Degree-Hurwitz
+This repository contains the code for several calculations in the paper Intersection Theory on Low Degree Hurwitz Spaces by Hannah Larson and Samir Canning. The code in the folder Section 5 is written in the Sage programming language, and the rest of the code is written in the Macaulay2 language. 
+When reading the paper, if you see a reference to a calculation, you will find it here. The code is labeled by its location in the paper.
