@@ -1,0 +1,45 @@
+A=QQ[g]
+R=frac(A)
+S=R[a1,a2,a3,b2,d1,d2,m1,c2, Degrees=>{{1},{2},{3},{2},{1},{2},{1},{2}}]
+
+I4=ideal((-8*g - 20)*a1 + 8*d1 + m1,(-4)*a1^2 + 8*a2 + b2 + (4*g^2 + 20*g + 24)*c2,((-g - 2)/(g + 1))*a1^2 + (1/(g + 1))*a1*d1 + a2 + (-1/(g + 1))*d2 + (1/3*g^2 + 5/3*g + 2)*c2,(-3/(g^2 + 4*g + 3))*a1^2 + (8/(g^3 + 6*g^2 + 11*g + 6))*d2 + c2,((-8/3*g^2 - 32/3*g - 10)/(g^2 + 4*g + 3))*a1^3 + ((4*g + 6)/(g^2 + 4*g + 3))*a1^2*d1 + ((13/3*g^2 + 41/3*g + 22/3)/(g^3 + 6*g^2 + 11*g + 6))*a1*d2 + (-8/(g^2 + 5*g + 6))*d1*d2 + a3)
+I5=ideal((2*g^3 + 9*g^2 + 10*g)*a1^3 + (-8*g^2 - 24*g - 8)*a1*d2,(12*g^3 + 42*g^2 + 36*g)*a1^2*d1 + (-22*g^3 - 121*g^2 - 187*g - 66)*a1*d2 + (-24*g^2 - 24*g)*d1*d2,(432*g^3 + 1512*g^2 + 1296*g)*a1*d1^2 + (-1450*g^3 - 8001*g^2 - 13115*g - 5442)*a1*d2 + (-1584*g^3 - 5544*g^2 - 3936*g)*d1*d2,(121*g^6 + 2143*g^5 + 54887/4*g^4 + 164309/4*g^3 + 58686*g^2 + 33246*g + 1890)*a1^2*d2 + (-1110*g^5 - 10860*g^4 - 77595/2*g^3 - 118845/2*g^2 - 32670*g - 810)*a1*d1*d2+ (1080*g^4 + 7020*g^3 + 14040*g^2 + 8100*g)*d1^2*d2 + (-22*g^5 - 90*g^4 - 181/2*g^3 - 15/2*g^2)*d2^2)
+J1=I4+I5
+J=minimalPresentation(J1)
+f=J1.cache.minimalPresentationMap
+textJ=toString(J)
+G=R[a1,d1,d2, Degrees=>{{1},{1},{2}}]
+newJ=value(textJ)
+Chow=G/newJ
+
+
+kappa1=(12*g+24)*a1-12*d1
+tr=(24*g+60)*a1-24*d1
+D=(-32*g-80)*a1+36*d1
+U=4*d2
+
+M1=matrix{{coefficient(a1,kappa1),coefficient(d1,kappa1)},{coefficient(a1,tr),coefficient(d1,tr)}}
+M1p=matrix{{coefficient(a1,D),coefficient(d1,D)},{coefficient(a1,tr),coefficient(d1,tr)}}
+M2=matrix{{coefficient(a1^2,tr*D),coefficient(d2,tr*D),coefficient(d1^2,tr*D),coefficient(a1*d1,tr*D)},{coefficient(a1^2,D*kappa1),coefficient(d2,D*kappa1),coefficient(d1^2,D*kappa1),coefficient(a1*d1,D*kappa1)},{coefficient(a1^2,U),coefficient(d2,U),coefficient(d1^2,U),coefficient(a1*d1,U)},{coefficient(a1^2,kappa1*tr),coefficient(d2,kappa1*tr),coefficient(d1^2,kappa1*tr),coefficient(a1*d1,kappa1*tr)}}
+M3=matrix{{coefficient(a1*d2,kappa1^2*tr),coefficient(d1^3,kappa1^2*tr),coefficient(d1*d2,kappa1^2*tr)},{coefficient(a1*d2,kappa1^2*D),coefficient(d1^3,kappa1^2*D),coefficient(d1*d2,kappa1^2*D)},{coefficient(a1*d2,kappa1*U),coefficient(d1^3,kappa1*U),coefficient(d1*d2,kappa1*U)}}
+M4=matrix{{coefficient(d1^4,kappa1^4),coefficient(d2^2,kappa1^4)},{coefficient(d1^4,kappa1^2*U),coefficient(d2^2,kappa1^2*U)}}
+
+det1=det(M1)
+det1p=det(M1p)
+det2=det(M2)
+det3=det(M3)
+det4=det(M4)
+
+roots(numerator(det1))
+roots(numerator(det1p))
+roots(numerator(det2))
+roots(numerator(det3))
+roots(numerator(det4))
+
+
+kappa1^5
+kappa1^6
+kappa1^7
+kappa1^8
+kappa1^9
+kappa1^10
