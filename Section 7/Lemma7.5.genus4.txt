@@ -1,15 +1,17 @@
 loadPackage "Schubert2"
-B1=base(4,g,Bundle=>(E,2,"e"),Bundle=>(Hyp,1,"z"))
+B1=base(4,g,Bundle=>(E,2,"e"),Bundle=>(Hyp,1,"z"), Bundle=>(A,2,"a"),Bundle=>(Ap,1,"d"))
 B1R=intersectionRing(B1)
 PEvee=flagBundle({1,1},E)
 gamma=PEvee.StructureMap
 W=OO_PEvee(3)**determinant(dual(E))
 Omegagamma=cotangentBundle(gamma)
 Omega=abstractSheaf(PEvee, Rank=>2,ChernClass=>chern(Omegagamma)*(1-2*z1))
+Deltagamma=W+(W**Omegagamma)
 Delta=W+(W**Omega)
 triglist1=for i from 0 to 1 list gamma_*((chern_1(OO_PEvee(1)))^i*ctop(Delta))
 newtriglist1 = for i from 0 to 1 list toString(triglist1#i)
-h1=chern_1(OO_PEvee(1))
+s1=gamma_*((chern_1(OO_PEvee(1))+a1-1/2*d1-4*z1)*(d1-3*a1)*ctop(Deltagamma))
+news1=toString(s1)
 
 B2=base(4,g,Bundle=>(A,2,"a"),Bundle=>(Ap,1,"d"),Bundle=>(C,2,"c"))
 B2R=intersectionRing(B2)
@@ -23,11 +25,10 @@ e1=chern_1(E)
 e2=chern_2(E)
 triglist2=for i from 0 to 1 list (for j from 0 to 1 list p_*(z1^j*value(newtriglist1#i)))
 newtriglist2 = flatten(for i from 0 to 1 list (for j from 0 to 1 list toString(triglist2#i#j)))
-num4=chern((dual(p_*(E(-3))**p_*(OO_P(1)))))
-denom4=segre((p_*(E(-2))))
+s=toString(p_*(value(news1)))
 S=QQ[a1,a2,d1,c2, Degrees=>{{1},{2},{1},{2}}]
 s14=value(toString(part(1,num4*denom4)))
-I=ideal(for i from 0 to 3 list (value(newtriglist2#i)))+ideal(s14)
+I=ideal(for i from 0 to 3 list (value(newtriglist2#i)))+ideal(value(s))
 J=minimalPresentation(I)
 
 
