@@ -47,6 +47,7 @@ for A in itertools.combinations(D1+D2,3): #select three boundary conditions to i
 		v = vector([1, 1, A[0][1], A[1][1], A[2][1]])
 		sol = M.inverse()*v #the point determined by the intersection of these boundary conditions
 		if is_in_region(sol):
+			print f(sol)
 			if f(sol) < 1/4:
 				print 'f is less than 1/4 at ', sol
 
@@ -78,14 +79,15 @@ print f((1/5,4/15,4/15,4/15,2/5,2/5,2/5,2/5,2/5)) == 1/5
 #PENTAGONAL (Lemma 5.13, complement of H^circ): verifies min(f) = 1/5 in specified region
 
 def f((x1,x2,x3,x4,y1,y2,y3,y4,y5)):
-	return 3*x4 + x3 - x2 - 3*x1 + 4*y5 + 2*y4 - 2*y2 - 4*y1 - sum([max(0, 1 - y1 - y2 - x) for x in [x1, x2, x3, x4]]) - sum([max(0, 1 - y1 - y3 - x) for x in [x1, x2, x3]]) - sum([max(0, 1 - y1 - y4 - x) for x in [x1, x2]]) - sum([max(0, 1 - y2 - y3 - x) for x in [x1, x2]])
+	return 3*x4 + x3 - x2 - 3*x1 + 4*y5 + 2*y4 - 2*y2 - 4*y1 - sum([max(0, 1 - y1 - y2 - x) for x in [x1, x2, x3, x4]]) - sum([max(0, 1 - y1 - y3 - x) for x in [x1, x2, x3]]) - sum([max(0, 1 - y1 - y4 - x) for x in [x1, x2]]) - sum([max(0, 1 - y2 - y3 - x) for x in [x1, x2]]) - max(0, 1 - y2 - y4 - x1) - max(0, 1 - y1 - y5 - x1)
 
 #inequalities in the definition of our region: ([a_1, a_2, a_3, a_4, b_1, b_2, b_3, b_4, b_5], c) means ax_1 + ... + a_4x_4 + b_1y_1 + ... + b_5y_5 \leq c
 #the condition that x_1 + ... + x_4 = 1 and y_1 + ... + y_5 = 2 will be imposed in the next step
-D1 = (([-1, 0, 0, 0, 0, 0, 0, 0, 0], 0), ([1, -1, 0, 0, 0, 0, 0, 0, 0], 0), ([0, 1, -1, 0, 0, 0, 0, 0, 0], 0), ([0, 0, 1, -1, 0, 0, 0, 0, 0], 0), ([0, 0, 0, 0, -1, 0, 0, 0, 0], 0), ([0, 0, 0, 0, 1, -1, 0, 0, 0], 0), ([0, 0, 0, 0, 0, 1, -1, 0, 0], 0), ([0, 0, 0, 0, 0, 0, 1, -1, 0], 0), ([0, 0, 0, 0, 0, 0, 0, 1, -1], 0), ([0, 0, 0, -1, -1, 0, -1, 0, 0], -1), ([0, 0, -1, 0, -1, 0, 0, -1, 0], -1), ([0, 0, -1, 0, 0, -1, -1, 0, 0], -1), ([1, 0, 0, 0, 1, 1, 0, 0, 0], 1))
+D1 = (([-1, 0, 0, 0, 0, 0, 0, 0, 0], 0), ([1, -1, 0, 0, 0, 0, 0, 0, 0], 0), ([0, 1, -1, 0, 0, 0, 0, 0, 0], 0), ([0, 0, 1, -1, 0, 0, 0, 0, 0], 0), ([0, 0, 0, 0, -1, 0, 0, 0, 0], 0), ([0, 0, 0, 0, 1, -1, 0, 0, 0], 0), ([0, 0, 0, 0, 0, 1, -1, 0, 0], 0), ([0, 0, 0, 0, 0, 0, 1, -1, 0], 0), ([0, 0, 0, 0, 0, 0, 0, 1, -1], 0), ([0, 0, 0, -1, -1, 0, -1, 0, 0], -1), ([0, 0, -1, 0, -1, 0, 0, -1, 0], -1), ([0, -1, 0, 0, -1, 0, 0, 0, -1], -1), ([0, 0, -1, 0, 0, -1, -1, 0, 0], -1), ([0, -1, 0, 0, 0, -1, 0, -1, 0], -1), ([-1, 0, 0, 0, 0, -1, 0, 0, -1], -1), ([-1, 0, 0, 0, 0, 0, -1, -1, 0], -1), ([1, 0, 0, 0, 1, 1, 0, 0, 0], 1))
 
 #additional boundary conditions where the function f changes:
-D2 = (([1, 0, 0, 0, 1, 1, 0, 0, 0], 1), ([0, 1, 0, 0, 1, 1, 0, 0, 0], 1), ([0, 0, 1, 0, 1, 1, 0, 0, 0], 1), ([0, 0, 0, 1, 1, 1, 0, 0, 0], 1), ([1, 0, 0, 0, 1, 0, 1, 0, 0], 1), ([0, 1, 0, 0, 1, 0, 1, 0, 0], 1), ([0, 0, 1, 0, 1, 0, 1, 0, 0], 1), ([1, 0, 0, 0, 1, 0, 0, 1, 0], 1), ([0, 1, 0, 0, 1, 0, 0, 1, 0], 1), ([1, 0, 0, 0, 0, 1, 1, 0, 0], 1), ([0, 1, 0, 0, 0, 1, 1, 0, 0], 1))
+D2 = (([1, 0, 0, 0, 1, 1, 0, 0, 0], 1), ([0, 1, 0, 0, 1, 1, 0, 0, 0], 1), ([0, 0, 1, 0, 1, 1, 0, 0, 0], 1), ([0, 0, 0, 1, 1, 1, 0, 0, 0], 1), ([1, 0, 0, 0, 1, 0, 1, 0, 0], 1), ([0, 1, 0, 0, 1, 0, 1, 0, 0], 1), ([0, 0, 1, 0, 1, 0, 1, 0, 0], 1), ([1, 0, 0, 0, 1, 0, 0, 1, 0], 1), ([0, 1, 0, 0, 1, 0, 0, 1, 0], 1), ([1, 0, 0, 0, 0, 1, 1, 0, 0], 1), ([0, 1, 0, 0, 0, 1, 1, 0, 0], 1),
+([1, 0, 0, 0, 1, 0, 0, 0, 1], 1), ([1, 0, 0, 0, 0, 1, 0, 1, 0], 1))
 
 for A in itertools.combinations(D1+D2,7): #select seven boundary conditions to impose (in addition to  x_1 + ... + x_4 = 1 and y_1 + ... + y_5 = 2)
 	M = Matrix([[1, 1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 1, 1, 1, 1], A[0][0], A[1][0], A[2][0], A[3][0], A[4][0], A[5][0], A[6][0]])
@@ -93,6 +95,7 @@ for A in itertools.combinations(D1+D2,7): #select seven boundary conditions to i
 		v = vector([1, 2, A[0][1], A[1][1], A[2][1], A[3][1], A[4][1], A[5][1], A[6][1]])
 		sol = M.inverse()*v #the point determined by the intersection of these boundary conditions
 		if is_in_region(sol):
+			print f(sol)
 			if f(sol) < 1/5:
 				print 'f is less than 1/5 at ', sol
 
